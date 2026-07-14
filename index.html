@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercantil en Línea Empresas - Mantenimiento (Responsive)</title>
+    <style>
+        /* General Reset and Setup */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header Section Styling */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #004E9B;
+            color: white;
+            padding: 0px 24px 0px 16px;
+            height: 64px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container {
+            padding-right: 48px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+            /* background: radial-gradient(34.25% 173.23% at 63.81% 17.22%, #219BD2 0%, #1B8BC6 27.58%, #0B62A8 76.65%, #044E99 100%); */
+        }
+
+        .black-line {
+            height: 62px;
+            border-right: 1px solid #023568;
+        }
+
+        .white-line {
+            height: 60px;
+            border-right: 1px solid #026891;
+        }
+
+
+        .header-title {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 700;
+            font-style: Bold;
+            font-size: 16px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            padding-left: 24px;
+        }
+
+        .help-icon {
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            border: 3px solid white;
+            border-radius: 25px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Sub-Header / Breadcrumb Styling */
+        .subheader {
+            padding: 10px 24px;
+        }
+
+        .subheader-text-small {
+            font-family: Segoe UI;
+            font-weight: 400;
+            font-style: Regular;
+            font-size: 12px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            color: #666666;
+            margin-bottom: 8px;
+        }
+
+        .subheader-text-big {
+            font-family: Arial;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 28px;
+            letter-spacing: 0%;
+            color: #0F4DBC;
+        }
+
+        /* Main Content Styling (The maintenance message) */
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: left;
+            padding: 20px;
+            /* Add padding for small screens */
+        }
+
+        .maintenance-box {
+            display: flex;
+            /* Flexbox for side-by-side layout (Desktop/Tablet) */
+            align-items: center;
+            justify-content: center;
+            max-width: 800px;
+            width: 100%;
+            /* Ensure it uses available width */
+            margin-top: -50px;
+        }
+
+        .text-container {
+            flex: 1;
+            padding-right: 30px;
+            min-width: 300px;
+            /* Ensure text doesn't get too squished */
+        }
+
+        .title {
+            color: #004E9B;
+            margin-bottom: 15px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 100%;
+        }
+
+        .message {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        .action-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: 3px 3px 6px 0px #00000029;
+            background: linear-gradient(180deg, #009FDA 0%, #004E9B 100%);
+            width: 144px;
+            height: 40px;
+            min-width: 144px;
+            opacity: 1;
+            border-radius: 20px;
+            padding-top: 10px;
+            padding-right: 32px;
+            padding-bottom: 10px;
+            padding-left: 32px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 400;
+            font-style: Regular;
+            font-size: 18px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            text-align: center;
+        }
+
+        .action-button:hover {
+            background: linear-gradient(180deg, rgba(0, 159, 218, 0.7) 0%, rgba(0, 78, 155, 0.7) 100%);
+
+        }
+
+        .action-button:active {
+            border: 2px solid #004E9B;
+            background: linear-gradient(180deg, rgba(0, 159, 218, 0.7) 0%, rgba(0, 78, 155, 0.7) 100%);
+            color: #004E9B;
+        }
+
+        .illustration {
+            width: 280px;
+            height: 223px;
+        }
+
+        .logo-svg {
+            width: 178px;
+            height: 42px;
+        }
+
+        .illustration-svg {
+            width: 280px;
+            height: 223px;
+        }
+
+        /* Footer Styling */
+        .footer {
+            padding: 10px;
+            text-align: center;
+            font-size: 10px;
+            color: #888;
+            border-top: 1px solid #eee;
+            background-color: #eeeeee;
+        }
+
+        /* --- RESPONSIVENESS (Media Queries) --- */
+        @media (max-width: 768px) {
+
+            /* Change the layout from side-by-side to stacked (column) */
+            .maintenance-box {
+                flex-direction: column;
+                margin-top: 0;
+                /* Remove the vertical shift */
+                padding: 10px;
+            }
+
+            /* Center the text and add space */
+            .text-container {
+                text-align: center;
+                padding-right: 0;
+                padding-bottom: 20px;
+                /* Add space below text before the image */
+            }
+
+            /* Center the illustration */
+            .image-container {
+                justify-content: center;
+                order: -1;
+                /* Place the image above the text on small screens */
+                padding-bottom: 20px;
+            }
+
+            /* Adjust text size for better mobile reading */
+            .title {
+                font-size: 16px;
+            }
+
+            .message {
+                font-size: 13px;
+            }
+
+            /* Header modifications for mobile */
+            .header {
+                justify-content: center;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .help-icon,
+            .black-line,
+            .white-line,
+            .header-title {
+                display: none;
+            }
+
+            .logo-container {
+                padding-right: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="logo-section">
+            <span class="logo-container">
+                <svg class="logo-svg" aria-label="Mercantil Logo"><use href="#logo-mercantil"/></svg>
+            </span>
+            <span class="black-line"></span>
+            <span class="white-line"></span>
+            <span class="header-title">Mercantil en Línea Empresas</span>
+        </div>
+        <div class="help-icon">?</div>
+    </header>
+
+    <div class="subheader">
+        <div class="subheader-text-small">Inicia tu sesión</div>
+        <div class="subheader-text-big">Inicia tu sesión</div>
+    </div>
+
+
+    <div class="main-content">
+        <div class="maintenance-box">
+            <div class="text-container">
+                <p class="title">En estos momentos nos encontramos en mantenimiento.</p>
+                <p class="message">En breves minutos podrás acceder nuevamente a Mercantil en Línea Empresas.
+                </p>
+                <button class="action-button" onclick="window.location.href='https://www.mercantilbanco.com/empresas'">Regresar</button>
+            </div>
+            <div class="image-container">
+                <div class="illustration">
+                    <svg class="illustration-svg" aria-label="Maintenance Illustration"><use href="#illustration-maintenance"/></svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        La información mostrada en esta página es confidencial.
+    </footer>
+
+    <!-- Mandatory Cloudflare Error Boxes (Hidden to preserve custom design) -->
+    <div style="display: none;">
+        ::CLOUDFLARE_ERROR_500S_BOX::
+        ::CLOUDFLARE_ERROR_1000S_BOX::
+    </div>
+
+    <!-- Embedded SVG Assets (Sprites) -->
+    <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
+        <!-- Gradients used by the SVGs -->
+        <defs>
+            <linearGradient id="paint0_linear_350_1357" x1="165.015" y1="28.4641" x2="157.235" y2="1.77593" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#F2F4F9"/>
+                <stop offset="1" stop-color="#003091"/>
+            </linearGradient>
+            <linearGradient id="paint1_linear_350_1357" x1="161.705" y1="19.4987" x2="164.18" y2="33.0548" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FFC4A6"/>
+                <stop offset="1" stop-color="#FF5700"/>
+            </linearGradient>
+            <linearGradient id="paint2_linear_350_1357" x1="160.323" y1="36.5969" x2="139.632" y2="24.7415" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FFD5BF"/>
+                <stop offset="1" stop-color="#FF5700"/>
+            </linearGradient>
+        </defs>
+
+        <!-- Mercantil Logo SVG Symbol -->
+        <symbol id="logo-mercantil" viewBox="0 0 178 42">
+            <path d="M70.3105 17.37C69.623 16.902 68.4339 16.272 66.0777 16.272C60.7767 16.272 56.457 20.957 56.457 26.717C56.457 30.652 58.7362 33 62.5653 33C64.7247 33 66.3835 32.196 67.3977 31.533L67.4527 31.5L66.972 28.37L66.8301 28.489C66.2955 28.967 64.8346 30.087 63.002 30.087C61.1694 30.087 60.1222 28.837 60.1222 26.359C60.1222 21.913 63.034 19.25 65.8489 19.25C67.3217 19.25 68.0962 19.62 68.6517 19.989L68.7397 20.043L70.3864 17.424L70.3105 17.37ZM57.4822 16.609C56.9476 16.37 56.38 16.272 55.6276 16.272C52.8567 16.272 50.8172 19.402 49.9989 20.913C50.4355 19.163 50.7303 17.804 50.8612 16.804L50.8822 16.696H47.4028L44.3272 32.609H47.9374L48.2322 30.957C49.5412 23.783 51.9844 19.663 54.9621 19.663C55.4208 19.663 55.8025 19.761 56.1292 19.87L56.2172 19.902L57.5471 16.641L57.4602 16.609H57.4822ZM15.1362 25.609L13.7183 28.391C13.7183 28.391 13.6414 28.565 13.5654 28.707C13.5325 28.424 13.4675 27.88 13.4675 27.88L13.1947 25.641L10.8605 10.75H7.29318L0.0506592 32.609H3.60597L7.71886 19.652C8.13354 18.37 8.39535 17.402 8.53724 16.804C8.53724 16.891 8.55822 16.989 8.55822 16.989L8.89697 19.511L10.9584 32.609H14.5367L21.7572 19.402C21.7572 19.402 22.9034 17.12 23.0343 16.848C22.9573 17.435 22.8814 18.326 22.7934 19.62L21.9871 32.609H25.7832L26.9063 10.75H23.2521L15.1143 25.609H15.1362ZM38.7304 16.261C33.5603 16.261 29.3495 21.054 29.3495 26.946C29.3495 30.674 31.6627 32.989 35.3819 32.989C37.4983 32.989 39.4179 32.391 41.0866 31.207L41.1416 31.174L40.6289 27.978L40.4981 28.087C39.3199 29.054 37.4873 30.087 35.8726 30.087C33.975 30.087 33.0147 28.935 33.0147 26.674V26.478C40.0184 25.63 43.5737 23.522 43.5737 20.185C43.5737 17.761 41.7201 16.261 38.7414 16.261H38.7304ZM33.2225 24.12C33.942 21.12 35.9815 19.033 38.2178 19.033C39.4838 19.033 40.0834 19.489 40.0834 20.478C40.0834 22.707 36.3961 23.685 33.2225 24.12ZM122.724 10.098C121.557 10.098 120.619 10.989 120.619 12.076C120.619 13.163 121.568 14.043 122.724 14.043C123.881 14.043 124.84 13.163 124.84 12.076C124.84 10.989 123.892 10.098 122.724 10.098ZM117.096 32.609H120.706L123.771 16.696H120.161L117.085 32.609H117.096ZM130.349 9L125.811 32.62H129.411L133.949 9H130.349ZM113.311 11.543L109.482 12.478C109.482 12.478 108.685 16.533 108.652 16.685H105.806L105.293 19.359H108.118C108.075 19.587 106.416 27.978 106.416 27.978C106.285 28.63 106.22 29.207 106.22 29.717C106.22 30.674 106.438 31.402 106.875 31.935C107.463 32.641 108.424 32.989 109.809 32.989C110.998 32.989 112.274 32.761 113.398 32.348L113.452 32.326L114.161 28.728L113.954 28.88C113.311 29.348 111.925 30.043 110.747 30.043C110.452 30.043 110.256 29.967 110.125 29.815C109.994 29.652 109.939 29.413 109.939 29.098C109.939 28.685 110.027 28.152 110.136 27.576C110.136 27.576 111.718 19.511 111.75 19.359H115.95L116.42 16.685H112.274C112.318 16.457 113.278 11.533 113.278 11.533L113.311 11.543ZM99.1956 16.261C96.021 16.261 94.0905 18.609 92.7485 20.793C93.0752 19.467 93.447 17.685 93.5779 16.804L93.5989 16.696H90.1195L87.0548 32.609H90.6651L90.9599 30.957C92.5197 22.391 95.4864 19.348 97.7447 19.348C98.2243 19.348 98.5731 19.478 98.8029 19.75C99.1736 20.185 99.2386 21 98.9988 22.239L97.0682 32.609H100.657L102.708 22.054C103.101 20.033 102.871 18.435 102.031 17.435C101.388 16.663 100.439 16.272 99.2056 16.272L99.1956 16.261ZM80.5967 16.261C74.6302 16.261 70.2995 21.163 70.2995 27.924C70.2995 31.054 71.9462 33 74.5972 33C77.4661 33 79.1128 30.902 80.4328 28.543C80.16 29.707 79.9532 30.967 79.7893 32.511V32.62H83.3346V32.522C83.3346 31.967 83.5205 29.435 84.3708 25.12L85.9307 17.098L85.8547 17.065C85.505 16.935 83.6294 16.272 80.5967 16.272V16.261ZM81.7089 20.413C80.9135 25.598 78.1855 29.978 75.7534 29.978C74.5643 29.978 74.0077 29.163 74.0077 27.402C74.0077 22.641 76.5827 19.054 79.9971 19.054C80.7925 19.054 81.524 19.174 81.8837 19.272C81.8617 19.424 81.6989 20.413 81.6989 20.413H81.7089" fill="white"/>
+            <path d="M172.645 12.265C172.313 9.16304 170.054 6.49903 166.455 4.45002C165.768 4.07702 165.06 3.71603 164.329 3.38703C159.645 1.24903 154.064 0 148.074 0C146.767 0 145.494 0.0549879 144.232 0.174988H144.209C144.143 0.174988 144.076 0.241007 144.076 0.307008C144.076 0.373008 144.121 0.426989 144.187 0.437989C154.131 2.817 161.528 11.6841 161.528 22.2491C161.528 23.4331 161.428 24.595 161.251 25.7351C168.67 22.173 173.187 17.2301 172.645 12.2541V12.265Z" fill="#00A0DD"/>
+            <path style="mix-blend-mode:multiply" d="M172.645 12.265C172.313 9.16304 170.054 6.49903 166.455 4.45002C165.768 4.07702 165.06 3.71603 164.329 3.38703C159.645 1.24903 154.064 0 148.074 0C146.767 0 145.494 0.0549879 144.232 0.174988H144.209C144.143 0.174988 144.076 0.241007 144.076 0.307008C144.076 0.373008 144.121 0.426989 144.187 0.437989C154.131 2.817 161.528 11.6841 161.528 22.2491C161.528 23.4331 161.428 24.595 161.251 25.7351C168.67 22.173 173.187 17.2301 172.645 12.2541V12.265Z" fill="url(#paint0_linear_350_1357)"/>
+            <path d="M172.645 12.2647C173.187 17.2407 168.658 22.1727 161.251 25.7457C160.143 32.7717 155.747 38.7228 149.668 41.9888C165.425 41.4078 177.949 32.2347 177.949 21.0107C177.949 14.2817 173.453 8.29672 166.455 4.44971C170.054 6.48871 172.301 9.16272 172.645 12.2647Z" fill="#FFE71A"/>
+            <path style="mix-blend-mode:multiply" d="M172.645 12.2647C173.187 17.2407 168.658 22.1727 161.251 25.7457C160.143 32.7717 155.747 38.7228 149.668 41.9888C165.425 41.4078 177.949 32.2347 177.949 21.0107C177.949 14.2817 173.453 8.29672 166.455 4.44971C170.054 6.48871 172.301 9.16272 172.645 12.2647Z" fill="url(#paint1_linear_350_1357)"/>
+            <path d="M142.872 30.6889C141.3 30.8529 138.465 31.0068 138.21 31.0178C137.889 31.0398 137.845 31.3468 138.188 31.4008C141.399 31.8068 147.921 34.7108 149.671 41.9999C155.75 38.7228 160.146 32.7819 161.253 25.7568C156.226 28.1678 149.881 29.9548 142.872 30.6998V30.6889Z" fill="#FFE71A"/>
+            <path style="mix-blend-mode:multiply" d="M142.872 30.6889C141.3 30.8529 138.465 31.0068 138.21 31.0178C137.889 31.0398 137.845 31.3468 138.188 31.4008C141.399 31.8068 147.921 34.7108 149.671 41.9999C155.75 38.7228 160.146 32.7819 161.253 25.7568C156.226 28.1678 149.881 29.9548 142.872 30.6998V30.6889Z" fill="url(#paint2_linear_350_1357)"/>
+        </symbol>
+
+        <!-- Maintenance SVG Symbol -->
+        <symbol id="illustration-maintenance" viewBox="0 0 280 223">
+            <path d="M198.889 22.7677L226.288 3.90332" stroke="#004E9B" stroke-width="0.9647"/>
+            <path d="M170.183 22.7669L224.981 3.25195" stroke="#004E9B" stroke-width="0.9647"/>
+            <path d="M262.167 21.4667L233.463 3.90332" stroke="#004E9B" stroke-width="0.9647"/>
+            <path d="M235.421 4.12067V1.08331C235.421 0.485014 234.936 0 234.337 0H225.414C224.816 0 224.331 0.485013 224.331 1.08331V4.12067C224.331 4.71896 224.816 5.20398 225.414 5.20398H234.337C234.936 5.20398 235.421 4.71897 235.421 4.12067Z" fill="#004E9B"/>
+            <path d="M233.476 3.23633L234.793 16.2969H225.116L226.348 3.23637L233.476 3.23633Z" fill="#004E9B"/>
+            <path d="M234.587 14.4277L234.794 16.2964H225.116L225.308 14.4278L234.587 14.4277Z" fill="#053A6D"/>
+            <path d="M256.726 20.166H273.478C274.076 20.166 274.561 20.651 274.561 21.2493V31.4422C274.561 32.0404 274.076 32.5255 273.478 32.5255H256.726C256.128 32.5255 255.643 32.0404 255.643 31.4422V21.2493C255.643 20.651 256.128 20.166 256.726 20.166Z" fill="#004E9B"/>
+            <path d="M256.726 29.5244H273.478C274.076 29.5244 274.561 30.0094 274.561 30.6077V31.4421C274.561 32.0404 274.076 32.5254 273.478 32.5254H256.726C256.128 32.5254 255.643 32.0404 255.643 31.4421V30.6077C255.643 30.0094 256.128 29.5244 256.726 29.5244Z" fill="#053A6D"/>
+            <path d="M236.022 131.668V33.3916H223.679V131.668H236.022Z" fill="#004E9B"/>
+            <path d="M236.022 131.668V33.3916H230.284V131.668H236.022Z" fill="#053A6D"/>
+            <path d="M256.182 30.8206H238.901V21.7285H256.182V30.8206Z" fill="#004E9B"/>
+            <path d="M256.182 30.8224H238.901V27.3242H256.182V30.8224Z" fill="#053A6D"/>
+            <path d="M220.062 30.9921H158.903C157.958 30.9921 157.466 29.8669 158.108 29.1732L164.599 22.1554C164.804 21.9337 165.092 21.8076 165.394 21.8076H220.062C220.66 21.8076 221.145 22.2926 221.145 22.8909V29.9088C221.145 30.5071 220.66 30.9921 220.062 30.9921Z" fill="#004E9B"/>
+            <path d="M220.046 30.9927H158.881C157.94 30.9927 157.447 29.8744 158.081 29.1791L159.452 27.6772C159.658 27.4523 159.948 27.3242 160.252 27.3242H220.024C220.616 27.3242 221.099 27.7997 221.107 28.3918L221.129 29.8937C221.138 30.4981 220.65 30.9927 220.046 30.9927Z" fill="#053A6D"/>
+            <path d="M221.277 33.8271H238.251C238.85 33.8271 239.335 33.3421 239.335 32.7438V17.347C239.335 16.7487 238.85 16.2637 238.251 16.2637H221.988C221.534 16.2637 221.129 16.5458 220.972 16.9709L217.937 25.1686C217.853 25.3965 217.847 25.6462 217.922 25.8775L220.246 33.0766C220.391 33.5239 220.807 33.8271 221.277 33.8271Z" fill="#004E9B"/>
+            <path d="M166.082 178.866H124.082V201.866H166.082V178.866Z" fill="#011427"/>
+            <path d="M34.582 72.8672V176.918C34.582 179.127 36.3729 180.918 38.582 180.918H251.582C253.791 180.918 255.582 179.127 255.582 176.918V72.8672C255.582 70.658 253.791 68.8672 251.582 68.8672H38.582C36.3729 68.8672 34.582 70.6581 34.582 72.8672Z" fill="#011427"/>
+            <path d="M38.582 75.3926V174.393C38.582 176.049 39.9252 177.393 41.582 177.393H248.582C250.239 177.393 251.582 176.049 251.582 174.393V75.3926C251.582 73.7357 250.239 72.3926 248.582 72.3926H41.582C39.9252 72.3926 38.582 73.7357 38.582 75.3926Z" fill="#F3F3ED"/>
+            <rect x="96.582" y="201.866" width="97" height="4" rx="2" fill="#011427"/>
+            <path d="M34.582 177.866V164.366C152.582 164.366 213.582 161.366 255.582 107.366V177.866C255.582 180.075 253.791 181.866 251.582 181.866H38.582C36.3729 181.866 34.582 180.075 34.582 177.866Z" fill="black" fill-opacity="0.14"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M134.238 118.56C133.907 116.768 131.217 116.768 130.887 118.56C130.65 119.844 129.009 120.353 128.029 119.448C126.659 118.184 124.483 119.695 125.317 121.331C125.915 122.503 124.901 123.837 123.551 123.655C121.666 123.402 120.835 125.848 122.516 126.703C123.719 127.315 123.719 128.964 122.516 129.576C120.835 130.43 121.666 132.876 123.551 132.623C124.901 132.442 125.915 133.776 125.317 134.947C124.483 136.583 126.659 138.095 128.029 136.831C129.009 135.926 130.65 136.435 130.887 137.719C131.217 139.511 133.907 139.511 134.238 137.719C134.475 136.435 136.115 135.926 137.096 136.831C138.465 138.095 140.642 136.583 139.807 134.947C139.21 133.776 140.224 132.442 141.573 132.623C143.459 132.876 144.29 130.43 142.609 129.576C141.406 128.964 141.406 127.315 142.609 126.703C144.29 125.848 143.459 123.402 141.573 123.655C140.224 123.837 139.21 122.503 139.807 121.331C140.642 119.695 138.465 118.184 137.096 119.448C136.115 120.353 134.475 119.844 134.238 118.56Z" fill="#FF691A"/>
+            <ellipse cx="4.47296" cy="4.4602" rx="4.47296" ry="4.4602" transform="matrix(0.999985 -0.00540071 0.00543166 0.999985 128.141 123.778)" fill="white"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M159.323 102.884C158.854 100.34 155.035 100.34 154.566 102.884C154.23 104.705 151.902 105.428 150.51 104.144C148.566 102.349 145.477 104.495 146.661 106.817C147.509 108.48 146.071 110.373 144.155 110.116C141.479 109.756 140.299 113.228 142.685 114.441C144.393 115.31 144.393 117.65 142.685 118.519C140.299 119.732 141.479 123.204 144.155 122.844C146.071 122.587 147.509 124.48 146.661 126.143C145.477 128.465 148.566 130.611 150.51 128.816C151.902 127.531 154.23 128.255 154.566 130.076C155.035 132.62 158.854 132.62 159.323 130.076C159.659 128.255 161.987 127.531 163.379 128.816C165.323 130.611 168.412 128.465 167.228 126.143C166.38 124.48 167.819 122.587 169.735 122.844C172.41 123.204 173.59 119.732 171.205 118.519C169.496 117.65 169.496 115.31 171.205 114.441C173.59 113.228 172.41 109.756 169.735 110.116C167.819 110.373 166.38 108.48 167.228 106.817C168.412 104.495 165.323 102.349 163.379 104.144C161.987 105.428 159.659 104.705 159.323 102.884Z" fill="#004E9B"/>
+            <ellipse cx="6.34872" cy="6.33061" rx="6.34872" ry="6.33061" transform="matrix(0.999985 -0.00540071 0.00543166 0.999985 150.669 110.291)" fill="white"/>
+            <rect x="83.8419" y="144.738" width="124.521" height="4.07102" rx="2.03551" fill="#043668"/>
+            <rect x="81.8009" y="144.738" width="69.9157" height="4.07102" rx="2.03551" fill="#666666"/>
+            <path d="M182.518 93.9426L202.686 86.8623" stroke="#004E9B" stroke-width="2.00265" stroke-linecap="round"/>
+            <path d="M206.064 31.0146V71.3605" stroke="#009FDA" stroke-width="2.67019"/>
+            <path d="M201.971 31.0146V71.3605" stroke="#009FDA" stroke-width="2.67019"/>
+            <path d="M199.387 83.2747C199.387 85.3546 201.078 87.0406 203.163 87.0406C205.249 87.0406 206.94 85.3546 206.94 83.2747C206.419 82.1446 203.622 79.3261 203.923 78.3813" stroke="#009FDA" stroke-width="4.00529" stroke-linecap="round"/>
+            <path d="M226.97 94.6579L203.743 85.5283C202.86 85.1331 202.408 85.5146 202.319 85.7257" stroke="#004E9B" stroke-width="2.00265"/>
+            <rect width="52.602" height="11.7793" rx="5.88967" transform="matrix(0.999997 -0.00253189 0.0025464 0.999997 177.701 93.4561)" fill="#A1A1A1"/>
+            <path d="M199.533 71.0195H208.501C209.238 71.0195 209.836 71.6173 209.836 72.3546V75.6403C209.836 75.9147 209.751 76.1824 209.594 76.4071L207.394 79.5428C207.144 79.899 206.736 80.1111 206.301 80.1111H201.849C201.406 80.1111 200.991 79.8909 200.743 79.5233L198.427 76.095C198.278 75.8743 198.198 75.614 198.198 75.3477V72.3546C198.198 71.6173 198.796 71.0195 199.533 71.0195Z" fill="#004E9B"/>
+            <path d="M27.5229 213.622H18.2041L16.7373 193.833L24.2441 173.011L27.5229 213.622Z" fill="#032C56"/>
+            <path d="M50.8218 213.622H60.1406L61.6074 193.833L54.1006 173.011L50.8218 213.622Z" fill="#032C56"/>
+            <path d="M11.9073 223H0L15.5313 172.926H24.4186L11.9073 223Z" fill="#004E9B"/>
+            <path d="M6.36133 202.511L7.11415 200.138H17.6294L17.0223 202.511H6.36133Z" fill="#014283"/>
+            <path d="M66.6112 223H78.5186L62.9873 172.926H54.0999L66.6112 223Z" fill="#004E9B"/>
+            <rect x="6.125" y="188.756" width="66.2668" height="11.3571" fill="#009FDA"/>
+            <rect x="6.125" y="170.845" width="66.2668" height="11.3571" fill="#009FDA"/>
+            <path d="M60.8809 200.107L61.4562 202.51H72.1495L71.4362 200.107H60.8809Z" fill="#014283"/>
+            <path d="M11.9375 184.491L12.6661 182.177H22.144L21.4915 184.491H11.9375Z" fill="#014283"/>
+            <path d="M66.6377 184.682L65.9025 182.203H56.4246L57.0426 184.682H66.6377Z" fill="#014283"/>
+            <path d="M229.003 212.875H219.685L218.218 193.087L225.725 172.265L229.003 212.875Z" fill="#032C56"/>
+            <path d="M252.301 212.875H261.62L263.087 193.087L255.58 172.265L252.301 212.875Z" fill="#032C56"/>
+            <path d="M213.388 222.254H201.48L217.012 172.179H225.899L213.388 222.254Z" fill="#004E9B"/>
+            <path d="M207.842 201.764L208.595 199.391H219.11L218.503 201.764H207.842Z" fill="#014283"/>
+            <path d="M268.092 222.254H279.999L264.468 172.179H255.58L268.092 222.254Z" fill="#004E9B"/>
+            <rect x="207.606" y="188.01" width="66.2668" height="11.3571" fill="#009FDA"/>
+            <rect x="207.606" y="170.099" width="66.2668" height="11.3571" fill="#009FDA"/>
+            <path d="M262.361 199.361L262.937 201.764H273.63L272.917 199.361H262.361Z" fill="#014283"/>
+            <path d="M213.418 183.745L214.147 181.431H223.625L222.972 183.745H213.418Z" fill="#014283"/>
+            <path d="M268.117 183.936L267.382 181.457H257.904L258.522 183.936H268.117Z" fill="#014283"/>
+        </symbol>
+    </svg>
+
+</body>
+
+</html>
