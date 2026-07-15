@@ -298,7 +298,7 @@
             <div class="text-container">
                 <p class="title">En estos momentos nos encontramos en mantenimiento.</p>
                 <p class="message">En breves minutos podrás acceder nuevamente a Mercantil en Línea Empresas.</p>
-                <p class="error-code-display">::CLIENT_IP:: - ::RAY_ID::</p>
+                <p class="error-code-display">::CLIENT_IP:: - ::RAY_ID:: - <span id="error-time"></span></p>
                 <button class="action-button" onclick="window.location.href='https://www.mercantilbanco.com/empresas'">Regresar</button>
             </div>
             <div class="image-container">
@@ -481,8 +481,17 @@
 </g>
         </symbol>
     </svg>
-
-
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const timeEl = document.getElementById("error-time");
+            if (timeEl) {
+                const now = new Date();
+                const dateStr = now.toLocaleDateString();
+                const timeStr = now.toLocaleTimeString();
+                timeEl.textContent = `${dateStr} ${timeStr}`;
+            }
+        });
+    </script>
 </body>
 
 </html>
