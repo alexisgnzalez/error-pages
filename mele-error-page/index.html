@@ -486,34 +486,34 @@
     </svg>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", () => {
             // Cloudflare replaces these tokens with the actual status/error codes.
             // Locally they will remain as literal strings.
-            var cfStatus = "::STATUS::";
-            var cfErrorCode = "::ERROR_CODE::";
+            const cfStatus = "::STATUS::";
+            const cfErrorCode = "::ERROR_CODE::";
             
-            var displayCode = "";
+            let displayCode = "";
             
             // Check status code (e.g. 403, 502)
-            var statusNum = parseInt(cfStatus, 10);
+            const statusNum = parseInt(cfStatus, 10);
             if (!isNaN(statusNum) && statusNum >= 400 && statusNum < 600) {
-                displayCode = statusNum + "C";
+                displayCode = `${statusNum}C`;
             }
             
             // If no status code was found, check Cloudflare error code (e.g. 1016)
             if (!displayCode) {
-                var errNum = parseInt(cfErrorCode, 10);
+                const errNum = parseInt(cfErrorCode, 10);
                 if (!isNaN(errNum) && errNum >= 1000) {
-                    displayCode = errNum + "C";
+                    displayCode = `${errNum}C`;
                 }
             }
             
-            var codeEl = document.getElementById("cloudflare-error-code");
-            var messageEl = document.querySelector(".message");
+            const codeEl = document.getElementById("cloudflare-error-code");
+            const messageEl = document.querySelector(".message");
             
             if (codeEl) {
                 if (displayCode) {
-                    codeEl.textContent = "Código " + displayCode + ".";
+                    codeEl.textContent = `Código ${displayCode}.`;
                     codeEl.style.display = "block";
                     if (messageEl) {
                         messageEl.style.marginBottom = "12px";
