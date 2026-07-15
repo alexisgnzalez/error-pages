@@ -146,6 +146,17 @@
             margin-bottom: 25px;
         }
 
+        .error-code-display {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            color: #666666;
+            margin-top: 0;
+            margin-bottom: 24px;
+        }
+
         .action-button {
             background-color: #007bff;
             color: white;
@@ -289,8 +300,8 @@
         <div class="maintenance-box">
             <div class="text-container">
                 <p class="title">En estos momentos nos encontramos en mantenimiento.</p>
-                <p class="message">En breves minutos podrás acceder nuevamente a Mercantil en Línea Empresas.
-                </p>
+                <p class="message">En breves minutos podrás acceder nuevamente a Mercantil en Línea Empresas.</p>
+                <p class="error-code-display" id="cloudflare-error-code" style="display: none;"></p>
                 <button class="action-button" onclick="window.location.href='https://www.mercantilbanco.com/empresas'">Regresar</button>
             </div>
             <div class="image-container">
@@ -301,11 +312,11 @@
         </div>
     </div>
     <footer class="footer">
-        La información mostrada en esta página es confidencial.
+        La información mostrada en esta página es confidencial. ::IP::
     </footer>
 
     <!-- Mandatory Cloudflare Error Boxes (Hidden to preserve custom design) -->
-    <div style="display: none;">
+    <div id="cf-hidden-boxes" style="display: none;">
         ::CLOUDFLARE_ERROR_500S_BOX::
         ::CLOUDFLARE_ERROR_1000S_BOX::
     </div>
@@ -474,6 +485,63 @@
         </symbol>
     </svg>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var codeText = ""; // Start with empty (no fallback display)
+            
+            // 1. Try to extract from Cloudflare error boxes if present
+            var hiddenDiv = document.getElementById("cf-hidden-boxes");
+            if (hiddenDiv) {
+                var content = hiddenDiv.textContent || hiddenDiv.innerText;
+                var match = content.match(/\b(5\d\d|1\d\d\d)\b/);
+                if (match) {
+                    codeText = match[1] + "C";
+                }
+            }
+
+            // Update DOM helper function
+            var messageEl = document.querySelector(".message");
+            var codeEl = document.getElementById("cloudflare-error-code");
+            function updateCodeDisplay(text) {
+                if (codeEl) {
+                    if (text) {
+                        codeEl.textContent = "Código " + text + ".";
+                        codeEl.style.display = "block";
+                        if (messageEl) {
+                            messageEl.style.marginBottom = "12px";
+                        }
+                    } else {
+                        codeEl.textContent = "";
+                        codeEl.style.display = "none";
+                        if (messageEl) {
+                            messageEl.style.marginBottom = "25px";
+                        }
+                    }
+                }
+            }
+
+            // If we found a code in Cloudflare boxes, display it immediately
+            if (codeText) {
+                updateCodeDisplay(codeText);
+            }
+
+            // 2. Perform a silent HEAD request to verify the actual HTTP response status
+            if (window.fetch) {
+                fetch(window.location.href, { method: "HEAD", cache: "no-store" })
+                    .then(function (response) {
+                        if (response.status >= 400 && response.status < 600) {
+                            updateCodeDisplay(response.status + "C");
+                        } else if (!codeText) {
+                            // If it's a successful response and we haven't found any error boxes code, make sure it is hidden
+                            updateCodeDisplay("");
+                        }
+                    })
+                    .catch(function (err) {
+                        // Fail silently, keep any existing code display (or keep hidden if none was set)
+                    });
+            }
+        });
+    </script>
 </body>
 
 </html>
