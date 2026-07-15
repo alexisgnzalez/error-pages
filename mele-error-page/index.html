@@ -312,7 +312,7 @@
         </div>
     </div>
     <footer class="footer">
-        La información mostrada en esta página es confidencial. ::IP::
+        La información mostrada en esta página es confidencial.
     </footer>
 
     <!-- Mandatory Cloudflare Error Boxes (Hidden to preserve custom design) -->
@@ -487,58 +487,44 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            var codeText = ""; // Start with empty (no fallback display)
+            // Cloudflare replaces these tokens with the actual status/error codes.
+            // Locally they will remain as literal strings.
+            var cfStatus = "::STATUS::";
+            var cfErrorCode = "::ERROR_CODE::";
             
-            // 1. Try to extract from Cloudflare error boxes if present
-            var hiddenDiv = document.getElementById("cf-hidden-boxes");
-            if (hiddenDiv) {
-                var content = hiddenDiv.textContent || hiddenDiv.innerText;
-                var match = content.match(/\b(5\d\d|1\d\d\d)\b/);
-                if (match) {
-                    codeText = match[1] + "C";
+            var displayCode = "";
+            
+            // Check status code (e.g. 403, 502)
+            var statusNum = parseInt(cfStatus, 10);
+            if (!isNaN(statusNum) && statusNum >= 400 && statusNum < 600) {
+                displayCode = statusNum + "C";
+            }
+            
+            // If no status code was found, check Cloudflare error code (e.g. 1016)
+            if (!displayCode) {
+                var errNum = parseInt(cfErrorCode, 10);
+                if (!isNaN(errNum) && errNum >= 1000) {
+                    displayCode = errNum + "C";
                 }
             }
-
-            // Update DOM helper function
-            var messageEl = document.querySelector(".message");
+            
             var codeEl = document.getElementById("cloudflare-error-code");
-            function updateCodeDisplay(text) {
-                if (codeEl) {
-                    if (text) {
-                        codeEl.textContent = "Código " + text + ".";
-                        codeEl.style.display = "block";
-                        if (messageEl) {
-                            messageEl.style.marginBottom = "12px";
-                        }
-                    } else {
-                        codeEl.textContent = "";
-                        codeEl.style.display = "none";
-                        if (messageEl) {
-                            messageEl.style.marginBottom = "25px";
-                        }
+            var messageEl = document.querySelector(".message");
+            
+            if (codeEl) {
+                if (displayCode) {
+                    codeEl.textContent = "Código " + displayCode + ".";
+                    codeEl.style.display = "block";
+                    if (messageEl) {
+                        messageEl.style.marginBottom = "12px";
+                    }
+                } else {
+                    codeEl.textContent = "";
+                    codeEl.style.display = "none";
+                    if (messageEl) {
+                        messageEl.style.marginBottom = "25px";
                     }
                 }
-            }
-
-            // If we found a code in Cloudflare boxes, display it immediately
-            if (codeText) {
-                updateCodeDisplay(codeText);
-            }
-
-            // 2. Perform a silent HEAD request to verify the actual HTTP response status
-            if (window.fetch) {
-                fetch(window.location.href, { method: "HEAD", cache: "no-store" })
-                    .then(function (response) {
-                        if (response.status >= 400 && response.status < 600) {
-                            updateCodeDisplay(response.status + "C");
-                        } else if (!codeText) {
-                            // If it's a successful response and we haven't found any error boxes code, make sure it is hidden
-                            updateCodeDisplay("");
-                        }
-                    })
-                    .catch(function (err) {
-                        // Fail silently, keep any existing code display (or keep hidden if none was set)
-                    });
             }
         });
     </script>
