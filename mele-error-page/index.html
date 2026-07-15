@@ -143,16 +143,13 @@
         .message {
             font-size: 14px;
             color: #555;
-            margin-bottom: 25px;
+            margin-bottom: 12px;
         }
 
         .error-code-display {
             font-family: Arial, Helvetica, sans-serif;
-            font-weight: 700;
-            font-size: 16px;
-            line-height: 100%;
-            letter-spacing: 0%;
-            color: #666666;
+            font-size: 10px;
+            color: #888;
             margin-top: 0;
             margin-bottom: 24px;
         }
@@ -301,7 +298,7 @@
             <div class="text-container">
                 <p class="title">En estos momentos nos encontramos en mantenimiento.</p>
                 <p class="message">En breves minutos podrás acceder nuevamente a Mercantil en Línea Empresas.</p>
-                <p class="error-code-display" id="cloudflare-error-code" style="display: none;"></p>
+                <p class="error-code-display">::CLIENT_IP:: - ::RAY_ID::</p>
                 <button class="action-button" onclick="window.location.href='https://www.mercantilbanco.com/empresas'">Regresar</button>
             </div>
             <div class="image-container">
@@ -485,49 +482,7 @@
         </symbol>
     </svg>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Cloudflare replaces these tokens with the actual status/error codes.
-            // Locally they will remain as literal strings.
-            const cfStatus = "::STATUS::";
-            const cfErrorCode = "::ERROR_CODE::";
-            
-            let displayCode = "";
-            
-            // Check status code (e.g. 403, 502)
-            const statusNum = parseInt(cfStatus, 10);
-            if (!isNaN(statusNum) && statusNum >= 400 && statusNum < 600) {
-                displayCode = `${statusNum}C`;
-            }
-            
-            // If no status code was found, check Cloudflare error code (e.g. 1016)
-            if (!displayCode) {
-                const errNum = parseInt(cfErrorCode, 10);
-                if (!isNaN(errNum) && errNum >= 1000) {
-                    displayCode = `${errNum}C`;
-                }
-            }
-            
-            const codeEl = document.getElementById("cloudflare-error-code");
-            const messageEl = document.querySelector(".message");
-            
-            if (codeEl) {
-                if (displayCode) {
-                    codeEl.textContent = `Código ${displayCode}.`;
-                    codeEl.style.display = "block";
-                    if (messageEl) {
-                        messageEl.style.marginBottom = "12px";
-                    }
-                } else {
-                    codeEl.textContent = "";
-                    codeEl.style.display = "none";
-                    if (messageEl) {
-                        messageEl.style.marginBottom = "25px";
-                    }
-                }
-            }
-        });
-    </script>
+
 </body>
 
 </html>
